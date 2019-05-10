@@ -51,7 +51,7 @@ public class DemoRedisServiceImpl implements IDemoRedisService {
 	@Override
 	public void testLockAndUnlock() {
 		String key = "prefix_key123456"; // redis 锁的 key 值
-		String expireTime = "300000";// 锁的超时时间(毫秒)，评估任务时间，建议任务的时间不要太长
+		String expireTime = "5000";// 锁的超时时间(毫秒)，评估任务时间，建议任务的时间不要太长
 		int retryTimes = 3;// 获取锁的重试次数
 
 		NUM = 0;// 共享变量
@@ -100,7 +100,7 @@ public class DemoRedisServiceImpl implements IDemoRedisService {
 				log.debug("All Threads are completed!");
 				break;
 			} else {
-				log.debug("Threads have not yet completed， sleep 3s!");
+				log.debug("Threads have not yet completed， sleep 5s!");
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
