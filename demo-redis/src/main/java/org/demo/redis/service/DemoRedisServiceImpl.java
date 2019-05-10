@@ -87,7 +87,7 @@ public class DemoRedisServiceImpl implements IDemoRedisService {
 			t.start();
 		}
 
-		//轮询主线程状态，等待所有子线程完成
+		//轮询状态，等待所有子线程完成
 		while (true) {
 			int aliveThreadCount = 0;
 			for (Thread t : list) {
