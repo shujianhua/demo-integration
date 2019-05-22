@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scripting.support.ResourceScriptSource;
@@ -25,12 +25,13 @@ public class RedisUtil {
 
 	@SuppressWarnings("rawtypes")
 	@Autowired
-	private RedisTemplate redisTemplateDemo;
+	private StringRedisTemplate stringRedisTemplateDemo;
 
 	private DefaultRedisScript<String> getLockRedisScript;
 	private DefaultRedisScript<String> releaseLockRedisScript;
 
-	private StringRedisSerializer stringSerializer = new StringRedisSerializer();
+	private StringRedisSerializer argsStringSerializer = new StringRedisSerializer();
+	private StringRedisSerializer resultStringSerializer = new StringRedisSerializer();
 
 	private final String EXEC_RESULT = "1";
 
@@ -42,12 +43,12 @@ public class RedisUtil {
 		releaseLockRedisScript = new DefaultRedisScript<String>();
 		releaseLockRedisScript.setResultType(String.class);
 
-		//初始化装载 lua 脚本
+		// 初始化装载 lua 脚本
 		getLockRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/getLock.lua")));
 		releaseLockRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/releaseLock.lua")));
 
 	}
-	
+
 	/**
 	 * 加锁操作
 	 * @param key Redis 锁的 key 值
@@ -65,9 +66,10 @@ public class RedisUtil {
 		try {
 			int count = 0;
 			while (true) {
-				Object result = redisTemplateDemo.execute(getLockRedisScript, stringSerializer, stringSerializer, Collections.singletonList(key),
-						requestId, expireTime);
-				if (EXEC_RESULT.equals(String.valueOf(result))) {
+				String result = stringRedisTemplateDemo.execute(getLockRedisScript, argsStringSerializer, resultStringSerializer,
+						Collections.singletonList(key), requestId, expireTime);
+				log.debug("result:{},type:{}", result, result.getClass().getName());
+				if (EXEC_RESULT.equals(result)) {
 					return true;
 				} else {
 					count++;
@@ -88,16 +90,16 @@ public class RedisUtil {
 	}
 
 	/**
-	 * 解锁操作  
+	 * 解锁操作
 	 * @param key Redis 锁的 key 值
-	 * @param requestId 请求 id, 防止解了不该由自己解的锁  (随机生成)
+	 * @param requestId 请求 id, 防止解了不该由自己解的锁 (随机生成)
 	 * @return true or false
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean unLock(String key, String requestId) {
-		Object result = redisTemplateDemo.execute(releaseLockRedisScript, stringSerializer, stringSerializer, Collections.singletonList(key),
-				requestId);
-		if (EXEC_RESULT.equals(String.valueOf(result))) {
+		String result = stringRedisTemplateDemo.execute(releaseLockRedisScript, argsStringSerializer, resultStringSerializer,
+				Collections.singletonList(key), requestId);
+		if (EXEC_RESULT.equals(result)) {
 			return true;
 		}
 		return false;

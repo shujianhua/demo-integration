@@ -19,5 +19,5 @@ spring:
 app:
     log:
         path: d:/logs/
-        level: debug
+        level: info
 
