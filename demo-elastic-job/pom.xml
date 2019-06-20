@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.demo</groupId>
+		<artifactId>demo-integration</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</parent>
+
+	<groupId>com.demo</groupId>
+	<artifactId>demo-elastic-job</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>demo-elastic-job</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<!-- <dependency> <groupId>com.dangdang</groupId> <artifactId>elastic-job-lite-core</artifactId> 
+			<version>2.1.5</version> </dependency> <dependency> <groupId>com.dangdang</groupId> 
+			<artifactId>elastic-job-lite-spring</artifactId> <version>2.1.5</version> 
+			</dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.shu.elasticjob.spring.boot</groupId>
+			<artifactId>elastic-job-lite-spring-boot-starter</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.github.kuhn-he</groupId> <artifactId>elastic-job-lite-spring-boot-starter</artifactId> 
+			<version>2.1.53</version> </dependency> -->
+		<!-- <dependency> <groupId>com.github.kuhn-he</groupId> <artifactId>elastic-job-lite-spring-boot-starter</artifactId> 
+			<version>2.1.53</version> <scope>system</scope> <systemPath>D:/tmp/elastic-job-lite-spring-boot-starter-master/elastic-job-lite-spring-boot-starter-master/target/elastic-job-lite-spring-boot-starter-2.1.53.jar</systemPath> 
+			</dependency> -->
+
+		<!-- 引入mysql数据库连接驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!--集成druid连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.10</version>
+		</dependency>
+	</dependencies>
+</project>
