@@ -14,13 +14,12 @@ spring:
     #注册中心配置
     zookeeper:
       serverList: 192.168.20.81:2181
-      namespace: namespace123456
-  datasource:
-    url: jdbc:mysql://192.168.20.81:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: root@echinacoop123
-    druid:
-      initial-size: 5 #连接池初始化大小
-      min-idle: 10 #最小空闲连接数
-      max-active: 20 #最大连接数
-    
+      namespace: namespace-demoElasticJob
+#  datasource:
+#    url: jdbc:mysql://192.168.20.81:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+#    username: root
+#    password: root@echinacoop123
+#    druid:
+#      initial-size: 5 #连接池初始化大小
+#      min-idle: 10 #最小空闲连接数
+#      max-active: 20 #最大连接数

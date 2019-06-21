@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.dangdang.ddframe.job.executor.ShardingContexts;
 import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
 
-@Component("MySimpleJobListener")
+@Component("mySimpleJobListener")
 public class MySimpleJobListener implements ElasticJobListener {
 	private static final Logger log = LoggerFactory.getLogger(MySimpleJobListener.class);
 	
